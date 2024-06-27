@@ -1,0 +1,55 @@
+using System;
+
+class Program {
+    static void Main() {
+        // Inicializa arrays para armazenar os usuários e senhas
+        string[] usuarios = new string[20];
+        int[] senhas = new int[20];
+
+        // Gera logins e senhas para os 20 usuários
+        GerarLoginsESenhas(usuarios, senhas);
+
+        // Imprime os logins e senhas gerados (para teste)
+        Console.WriteLine("Usuários e Senhas Sorteadas:");
+        for (int i = 0; i < usuarios.Length; i++) {
+            Console.WriteLine($"Usuário: {usuarios[i]}, Senha: {senhas[i]}");
+        }
+
+        // Solicita login e senha para autenticação
+        AutenticarUsuario(usuarios, senhas);
+    }
+
+    public static void GerarLoginsESenhas(string[] usuarios, int[] senhas) {
+        Random random = new Random();
+
+        for (int i = 0; i < usuarios.Length; i++) {
+            usuarios[i] = "user" + (i + 1);  // Gera um nome de usuário único
+            senhas[i] = random.Next(1000, 9999);  // Gera uma senha de 4 dígitos
+        }
+    }
+
+    public static void AutenticarUsuario(string[] usuarios, int[] senhas) {
+        Console.Write("Digite o seu login: ");
+        string login = Console.ReadLine();
+        Console.Write("Digite a sua senha: ");
+        int senha;
+        while (!int.TryParse(Console.ReadLine(), out senha)) {
+            Console.WriteLine("Senha inválida! Digite uma senha numérica:");
+        }
+
+        // Verifica se o login e a senha são válidos
+        bool autenticado = false;
+        for (int i = 0; i < usuarios.Length; i++) {
+            if (usuarios[i] == login && senhas[i] == senha) {
+                autenticado = true;
+                break;
+            }
+        }
+
+        if (autenticado) {
+            Console.WriteLine("Autenticação bem-sucedida!");
+        } else {
+            Console.WriteLine("Login ou senha incorretos. Tente novamente.");
+        }
+    }
+}
