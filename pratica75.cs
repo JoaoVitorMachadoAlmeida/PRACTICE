@@ -1,7 +1,8 @@
 /******************************************************************************
 
 Exercício: Sistema de Cadastro de Alunos
-Descrição: Crie um programa que gerencie um sistema de cadastro de alunos. Cada aluno deve ter um nome, idade e uma nota final. O programa deve permitir que você adicione alunos, exiba todos os alunos cadastrados, exiba os alunos aprovados (nota >= 7) e calcule a média das notas da turma.
+Descrição: Crie um programa que gerencie um sistema de cadastro de alunos. Cada aluno deve ter um nome, idade e uma nota final.
+O programa deve permitir que você adicione alunos, exiba todos os alunos cadastrados, exiba os alunos aprovados (nota >= 7) e calcule a média das notas da turma.
 
 Funcionalidades:
 Adicionar Novo Aluno:
@@ -24,7 +25,8 @@ using System.Collections.Generic;
 class HelloWorld {
   static void Main() {
     List<Alunos> alunos = new List<Alunos>();
-    while(true){
+    bool rodarPrograma = true;
+    while(rodarPrograma == true){
     Console.WriteLine("O que deseja fazer?");
     Console.WriteLine("1-Adicionar aluno");
     Console.WriteLine("2-Mostrar lista de alunos");
@@ -36,7 +38,19 @@ class HelloWorld {
     case '1':
     AdicionarAlunos(alunos);
     break;
-    
+    case '2':
+    MostrarAlunos(alunos);
+    break;
+    case '3':
+    AlunosAprovados(alunos);
+    MediaDaSala(alunos);
+    break;
+    case '4':
+    rodarPrograma = false;
+    break;
+    default:
+    Console.WriteLine("Numero digitado incorreto");
+    break;
       }
     }
   }
@@ -56,6 +70,35 @@ class HelloWorld {
           
           alunos.Add(new Alunos(nome,idade,nota));
       }
+      Console.ReadKey();
+      Console.Clear();
+  }
+  public static void MostrarAlunos(List<Alunos> alunos){
+      Console.WriteLine("Alunos: ");
+      foreach(var aluno in alunos){
+          Console.WriteLine($"Nome: {aluno.Nome}, Idade: {aluno.Idade}, Nota: {aluno.Nota}");
+      }
+      Console.ReadKey();
+      Console.Clear();
+  }
+  public static void AlunosAprovados(List<Alunos> alunos){
+      Console.WriteLine("Alunos aprovados: ");
+      foreach(var aluno in alunos){
+          if(aluno.Nota >= 7){
+          Console.WriteLine($"Nome: {aluno.Nome}, Idade: {aluno.Idade}, Nota: {aluno.Nota}");
+         }
+      }
+      Console.WriteLine();
+  }
+  public static void MediaDaSala(List<Alunos> alunos){
+      double soma = 0;
+        foreach(var aluno in alunos){
+            soma += aluno.Nota;
+        }
+        
+       Console.WriteLine($"Media da sala: { soma / alunos.Count}");
+       Console.ReadKey();
+       Console.Clear();
   }
 }
 class Alunos{
