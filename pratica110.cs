@@ -127,10 +127,21 @@ Calcule o total de receita (quantidade vendida * preço unitário) para cada pro
         {
             Console.WriteLine($"Nome: {item.NomeProduto}, Mês: {item.Mes}, Vendas total: {item.TotalVendas:F2}");
         }
+        Console.WriteLine();
         /*
         Produtos Não Vendidos:
 Selecione todos os produtos da lista que nunca foram vendidos (ou seja, a QuantidadeVendida é zero em todas as vendas desse produto).
         */
+        var produtosNaoVendidos = vendas
+        .Where(x => x.QuantidadeVendida == 0)
+        .ToList();
+        
+        Console.WriteLine("Produtos nunca vendidos: ");
+        
+        foreach(var item in produtosNaoVendidos)
+        {
+            Console.WriteLine($"Nome: {item.NomeProduto}");
+        }
 
 	}
 }
